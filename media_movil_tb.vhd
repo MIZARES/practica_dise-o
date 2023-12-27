@@ -3,6 +3,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use ieee.std_logic_signed.all;
 use ieee.math_real.all;
 -------------------------------------------------------------------------------
 entity media_movil_tb is
@@ -46,14 +47,14 @@ begin  -- sim
     begin
       valor       <= dato_intg;
       for j in 1 to N_data loop
-        wait until CLK_i = '0;
+        wait until CLK_i = '0';
         uniform(seed1, seed2, rand);
         int_rand := integer(trunc(rand*20.0))-10;
         ruido     <= int_rand;
         DATA_i    <= std_logic_vector(to_unsigned((dato_intg+int_rand), DATA_i'length));
-        DATA_OK_i <= '1;
-        wait until CLK_i = '0;
-        DATA_OK_i <= '0;
+        DATA_OK_i <= '1';
+        wait until CLK_i = '0';
+        DATA_OK_i <= '0';
         wait for 77 ns;
       end loop;  -- j
       wait for 200 ns;
@@ -71,18 +72,5 @@ begin  -- sim
 
 end sim;
 
-
-begin  -- process
-
-  wait for 333 ns;
-  gen_dato(255, 80);
-  gen_dato(12, 80);
-  gen_dato(1999, 90);
-  gen_dato(2095, 100);
-
-  report "fin de la simulacion" severity failure;
-end process;
-
-end sim;
 
 -------------------------------------------------------------------------------
