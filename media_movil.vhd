@@ -14,7 +14,8 @@ end media_movil;
 type shift_reg is array(0 to 15) of unsigned(11 downto 0);
 signal reg : shift_reg := (others => (others => '0'));
 signal ac1 unsigned(11 downto 0);
-signal ac2,ac3 unsigned(12 downto 0); -- 13 por overflow
+signal ac2 unsigned(12 downto 0); -- 13 por overflow
+signal ac3 unsigned(11 downto 0);
 
 architecture rtl of media_movil is
 begin
@@ -35,11 +36,11 @@ begin
           reg(i + 1) <= reg(i)
         end loop;
       ac3<=ac2;    
-  
+      V_MED<=std_logic_vector(resize(ac3(12 downto 4),V_MED'length));
       end if;
 
     end process;
-    ac1<=ac1+data-reg(15);
+    ac1<=data-reg(15);
     ac2<=ac1+ac3;
 
     process(clk,rst)
