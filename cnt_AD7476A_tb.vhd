@@ -22,7 +22,7 @@ architecture sim of cnt_AD7476A_tb is
   signal   SCLK_i    : std_logic;
   signal   DATA_i    : std_logic_vector(11 downto 0);
   signal   DATA_OK_i : std_logic;
-  constant T_signal  : time      ;  -- completar
+  constant T_signal  : time     :=1ms ;  -- completar
 
 
 begin  -- sim
